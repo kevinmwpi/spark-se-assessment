@@ -71,7 +71,12 @@ class listAPI(MethodView):
         users = User.query.all()
         responseObject = []
         for user in users:
-            responseObject.append(user.email)
+            responseObject.append({
+                    'admin': user.admin,
+                    'email': user.email,
+                    'id': user.id,
+                    'registered_on': user.registered_on
+                })
         return make_response(jsonify(responseObject)), 201
 
 
