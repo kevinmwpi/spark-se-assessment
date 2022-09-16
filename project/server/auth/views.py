@@ -68,10 +68,14 @@ auth_blueprint.add_url_rule(
 
 class listAPI(MethodView):
     def get(self):
-        users = User.query.all()
         responseObject = []
-        for user in users:
-            responseObject.append({'admin': user.admin,'email': user.email, 'id': user.id, 'registered_on': user.registered_on})
+        for user in User.query.all():
+            hold = {}
+            hold['admin'] = user.admin
+            hold['email'] = user.email
+            hold['id'] = user.id
+            hold['registered_on'] = user.registered_on
+            responseObject.append(hold)
         return make_response(jsonify(responseObject)), 201
 
 
